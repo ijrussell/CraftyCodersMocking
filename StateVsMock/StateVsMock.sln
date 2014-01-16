@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StateVsMock", "StateVsMock\StateVsMock.csproj", "{BB4EB9CB-3CD1-4A3C-96BF-DB2F180AF86E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StateVsMock.Tests", "StateVsMock.Tests\StateVsMock.Tests.csproj", "{CE5D63F2-1E5A-4ABC-92D5-C73AE9AA13D4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB4EB9CB-3CD1-4A3C-96BF-DB2F180AF86E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB4EB9CB-3CD1-4A3C-96BF-DB2F180AF86E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB4EB9CB-3CD1-4A3C-96BF-DB2F180AF86E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB4EB9CB-3CD1-4A3C-96BF-DB2F180AF86E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE5D63F2-1E5A-4ABC-92D5-C73AE9AA13D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE5D63F2-1E5A-4ABC-92D5-C73AE9AA13D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE5D63F2-1E5A-4ABC-92D5-C73AE9AA13D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE5D63F2-1E5A-4ABC-92D5-C73AE9AA13D4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

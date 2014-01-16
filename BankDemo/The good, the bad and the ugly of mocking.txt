@@ -1,0 +1,112 @@
+The good, the bad and the ugly of mocking
+
+Mocking is one of the least understood, most poorly executed and contensious activities that we can undertake in .Net.  In this session, Ian Russell will help you to resolve any misunderstandings and help you to determine if mocking will help you to add value to your software projects.
+
+Bio:
+Experienced provider of simplicity, order and common-sense to complex OLTP solutions. Passionate about learning from others and giving back to the community. Paid to write C# and SQL, lover of F#, node.js and NoSql.
+
+Co-founder of CraftyCoders (http://www.craftycoders.net), a principles-focused user group for the West Midlands .Net community.
+
+Fake 
+	Stub -> used in test
+	Mock -> Asserted against
+
+Constrained/Not constrained (DynamicProxy vs Process API)
+
+"From my perspective, Rhino Mocks is done. Done in the sense that I don’t have any interest in extending it, done in the sense that I don’t really use mocking any longer."
+Source: Ayende Rahien [http://ayende.com/blog/161826/the-state-of-rhino-mocks]
+
+"But more and more, I find myself in agreement; mocking tends to produce brittle tests that are tied to implementation details. Integration tests with real components may run slower than unit tests with mocks, but they tend to be an actual test of the system."
+Source: Judah Gabriel Himango [http://ayende.com/blog/161826/the-state-of-rhino-mocks]
+
+"Mocks are something that I would generally use nowadays only for external components. Stuff that is entirely out of my control. I would mock the CreditCard company service, for example. For internal stuff, I don't do that. Testing object interaction independently from the system only means that you are setting in stone those interactions. If you need to change them in some way, that is going to come back and bite you later on. Consider a scenario in which we change the implementation to increase performance, without changing observable behavior. With mocks, tests will usually break because of that.
+
+This isn't enabling change, this is shackling it with iron chains."
+Source: Ayende Rahien [http://ayende.com/blog/161826/the-state-of-rhino-mocks]
+
+Michael Feathers laid down some great rules for unit tests in 2005:
+	A test is not a unit test if:
+		It talks to the database
+		It communicates across the network
+		It touches the file system
+		It can't run at the same time as any of your other unit tests
+		You have to do special things to your environment (such as editing config files) to run it.
+
+Roy Osherove (The Art of Unit Testing)
+	Create readable, maintainable, trustworthy tests
+	Fakes, stubs, mock objects, and isolation (mocking) frameworks
+	Simple dependency injection techniques
+	Refactoring legacy code
+
+Robert C Martin
+	F -> Fast
+	I -> Independent
+	R -> Repeatable
+	S -> Self-verifying
+	T -> Timely
+
+What does a isolation framework need to do?
+	1.  Create fake object
+		A mocking framework creates a fake object to be used in 
+		a test. Usually a default behavior can be set in this stage. 
+		In order to configure more detailed function behavior 
+		additional code is required.
+	2.  Set behavior on fake objects
+		After we’ve created the fake object more often than 
+		not we will need to set specific behavior on some of its 
+		methods.
+	3.  Verify methods were called
+		Also known as interaction testing. The mocking framework gives us the power to test that a specific method 
+		was called (or not called), in which order, how many times 
+		and with which arguments.
+
+Conquer first; divide later.
+
+
+Lump of coding images
+http://anarchycreek.com/2010/02/17/the-lump-of-coding-fallacy/
+
+Code is a liability
+	The more we have the more we need to maintain
+
+DAMP
+	Descriptive and Meaningful Phrases
+
+Object Mother
+	Class with methods to generate class
+
+Test Data Builder
+	Fluent builder
+	var basket = new BasketBuilder()
+					.WithLargeDiscount()
+					.WithSpecialOffer()
+					.Build();
+
+SUT Factory
+	Decouples creation of sut from it's constructor
+
+Automock
+	Creates instances of sut
+
+Four-Phase Test
+	Fixture setup
+	Exercise SUT
+	Result verification
+	Fixture teardown
+
+IEqualityComparer<T> for assertions
+
+ mock objects are simulated objects that mimic the behavior of real objects in controlled ways. A programmer typically creates a mock object to test the behavior of some other object, in much the same way that a car designer uses a crash test dummy to simulate the dynamic behavior of a human in vehicle impacts.
+
+There are other good reasons for faking an object:
+	Make the test deterministic – unit tests should have the same result each time you run them. If your object returns a non deterministic value that would change each time you run the test, by faking that class behavior you can make it return the same value each and every time.
+	Hard to set up environment – if you need a database (with specific data), a server or similar components for the test to pass.
+	When objects do not yet exist – during development you cannot rely on all of the objects you need to be when you need them. You might need another class that was not written yet or some algorithm that was not implemented yet.
+	Difficult to reproduce state – e.c. you need to check what happens when your client receives a network error while calling its server.
+
+2001 - Tim Mackinnon, Steve Freeman & Phillip Craig (Endo-Testing: Unit Testing with Mock Objects)
+2007 - Gerard Meszaros (xUnit Test Patterns)
+
+Test Double -> Dummy -> Stub -> Spy -> Mock
+Fake
+

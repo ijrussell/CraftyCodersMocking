@@ -1,0 +1,47 @@
+    [TestFixture]
+    public class GetCurrentAccountQueryHandlerTests
+    {
+        [Test]
+        public void should_return_current_account_if_account_exists()
+        {
+            // Arrange
+            var query = new GetCurrentAccountQueryBuilder()
+                .WithSortCode("12-34-56")
+                .WithAccountNumber(87654321)
+                .Build();
+
+            var dataService = Substitute.For<IDataService>();
+
+            dataService.GetCurrentAccount(query.SortCode, query.AccountNumber).Returns(new CurrentAccountBuilder().Build());
+            
+            var sut = new GetCurrentAccountQueryHandlerBuilder()
+                .WithDataService(dataService)
+                .Build();
+
+            // Act
+            var actual = sut.Handle(query);
+
+            // Assert
+            Assert.True(new CurrentAccountComparer().Equals(actual, new CurrentAccountBuilder().Build()));
+            //Assert.That(actual, Is.EqualTo(new CurrentAccountBuilder().Build()));
+        }
+
+        [Test]
+        public void should_return_null_if_current_account_does_not_exist()
+        {
+            // Arrange
+            var query = new GetCurrentAccountQueryBuilder().Build();
+
+            var dataService = Substitute.For<IDataService>();
+
+            dataService.GetCurrentAccount(query.SortCode, query.AccountNumber).Returns((CurrentAccount)null);
+
+            var sut = new GetCurrentAccountQueryHandlerBuilder()
+                .WithDataService(dataService)
+                .Build();
+
+            // Act
+            // Assert
+            Assert.Throws<UnknownCurrentAccountException>(() => sut.Handle(query));
+        }
+    }
